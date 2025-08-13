@@ -5,6 +5,7 @@ const appConfig = () => ({
     APP_ORIGIN: getEnv('APP_ORIGIN', 'localhost'),
     PORT: getEnv('PORT', '3000'),
     BASE_PATH: getEnv('BASE_PATH', '/api/v1'),
+    MONGO_URI: getEnv('MONGO_URI'),
 
     JWT:{
         ACCESS_TOKEN_SECRET: getEnv('ACCESS_TOKEN_SECRET'),
