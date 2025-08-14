@@ -1,6 +1,6 @@
 import { app } from "./app";
 import { config } from "./config/app.config";
-import connectDB from "./database/models/database";
+import connectDB from "./database/database";
 
 connectDB()
   .then(() => {
