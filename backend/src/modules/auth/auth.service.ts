@@ -149,4 +149,36 @@ export class AuthService {
 
     return { accessToken, newRefreshToken };
   }
+
+  public async verifyEmail(code:string) {
+    const validCode = await VerifiactionCodeModel.findOne({
+      code:code,
+      type:VerificationEnum.EMAIL_VERIFICATION,
+      expiredAt: { $gt: new Date()},
+    });
+
+    if(!validCode) {
+      throw new BadRequestException('Invalid or expired verification code')
+    }
+
+    const updatedUser = await UserModel.findByIdAndUpdate(
+      validCode.userId,
+      {
+        isEmailVerified:true,
+      },{ new :true}
+    );
+
+    if(!updatedUser) {
+      throw new BadRequestException(
+        'Unable to verify email address',
+        ErrorCode.VALIDATION_ERROR
+      )
+    }
+
+    await validCode.deleteOne();
+
+    return {
+      user:updatedUser,
+    }
+  }
 }
