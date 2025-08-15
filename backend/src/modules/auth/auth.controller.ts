@@ -28,7 +28,7 @@ export class AuthController {
       return res.status(HTTPSTATUS.CREATED).json({
         message: "User registered successfully",
         data: user,
-      });
+    });
     }
   );
 
