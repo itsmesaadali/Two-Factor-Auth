@@ -29,6 +29,7 @@ export const sendEmail = async ({
     html,
   });
 
+  return result;
 //   console.log("📧 Resend send result:", result); // <--- Debug log
 
 };
