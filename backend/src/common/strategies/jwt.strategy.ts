@@ -53,4 +53,4 @@ export const setupJwtStrategy = (passport: PassportStatic) => {
   );
 };
 
-export const authenticationJWT = passport.authenticate('jwt', {session:false});
+export const authenticateJWT = passport.authenticate('jwt', {session:false});
