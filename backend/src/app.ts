@@ -8,6 +8,7 @@ import { HTTPSTATUS } from "./config/http.config";
 import { asyncHandler } from "./middlewares/asyncHandler";
 import authRoutes from "./modules/auth/auth.routes";
 import sessionRoutes from "./modules/session/session.route";
+import mfaRoutes from "./modules/mfa/mfa.route";
 import passport from './middlewares/passport'
 import { authenticateJWT } from "./common/strategies/jwt.strategy";
 
@@ -35,9 +36,11 @@ app.get(
   })
 );
 
-app.use(`${BASE_PATH}/auth`, authRoutes)
+app.use(`${BASE_PATH}/auth`, authRoutes);
 
-app.use(`${BASE_PATH}/session`, authenticateJWT, sessionRoutes)
+app.use(`${BASE_PATH}/mfa`, mfaRoutes);
+
+app.use(`${BASE_PATH}/session`, authenticateJWT, sessionRoutes);
 
 app.use(errorHandler);
 
