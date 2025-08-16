@@ -21,16 +21,12 @@ export const sendEmail = async ({
   html,
   from = mailer_sender,
 }: Params) => {
-  const result = await resend.emails.send({
+  return await resend.emails.send({
     from,
     to: Array.isArray(to) ? to : [to],
     text,
     subject,
     html,
   });
-
-  return result;
-//   console.log("📧 Resend send result:", result); // <--- Debug log
-
 };
 
