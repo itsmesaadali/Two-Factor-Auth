@@ -30,11 +30,27 @@ export class MfaController {
         ...req.body,
       });
 
-      const {userPreferences, message} = await this.mfaService.verifyMFASetup(req, code, secretKey);
+      const { userPreferences, message } = await this.mfaService.verifyMFASetup(
+        req,
+        code,
+        secretKey
+      );
 
       return res.status(HTTPSTATUS.OK).json({
-        message:message,
-        userPreferences:userPreferences,
+        message: message,
+        userPreferences: userPreferences,
+      });
+    }
+  );
+
+  public revokeMFA = asyncHandler(
+    async (req: Request, res: Response): Promise<any> => {
+      
+      const {message, userPreferences} = await this.mfaService.revokeMFA(req);
+
+      return res.status(HTTPSTATUS.OK).json({
+        message,
+        userPreferences,
       })
     }
   );
