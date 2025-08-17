@@ -36,6 +36,11 @@ type verifyMFAType = {
   secretKey: string;
 };
 
+type verifyMfaLoginType = {
+  code: string;
+  email: string;
+};
+
 export const loginMutationFn = async (data: LoginType) =>
   await API.post("/auth/login", data);
 
@@ -51,6 +56,9 @@ export const forgotPasswordMutationFn = async (data: ForgotPasswordType) =>
 export const resetPasswordMutationFn = async (data: ResetPasswordType) =>
   await API.post("/auth/password/reset", data);
 
+export const verifyMFALoginMutationFn = async (data: verifyMfaLoginType) =>
+  await API.post("/mfa/verify-login", data);
+
 export const mfasetupQueryFn = async () => {
   const response = await API.get<mfaType>("/mfa/setup");
   return response.data;
@@ -58,5 +66,8 @@ export const mfasetupQueryFn = async () => {
 
 export const verifyMFAMutationFn = async (data: verifyMFAType) =>
   await API.post("/mfa/verify", data);
+
+export const revokeMFAMutationFn = async () =>
+  await API.post("/mfa/revoke", {});
 
 export const getUserSessionQueryFn = async () => await API.get("/session/");

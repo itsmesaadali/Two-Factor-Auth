@@ -4,7 +4,7 @@ import ForgotPassword from './_forgotpassword'
 const Page = () => {
   return (
     <div>
-      return <Suspense>
+      <Suspense>
         <ForgotPassword/>
       </Suspense>
     </div>
