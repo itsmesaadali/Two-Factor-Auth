@@ -3,9 +3,19 @@
 
 @custom-variant dark (&:is(.dark *));
 
-html, body {
+html,
+body {
   height: 100%;
-} 
+}
+
+.steps-gradient {
+  background: linear-gradient(180deg,
+      transparent 0,
+      #00002f26 10%,
+      #00002f26 90%,
+      transparent 100%,
+    )
+}
 
 @theme inline {
   --color-background: var(--background);
@@ -122,6 +132,7 @@ html, body {
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
   }
