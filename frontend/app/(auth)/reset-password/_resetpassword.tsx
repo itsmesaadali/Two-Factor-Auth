@@ -144,6 +144,7 @@ export default function ResetPassword() {
 
               <Button
                 className="w-full text-[15px] h-[40px] text-white font-semibold"
+                type="submit"
                 disabled={isPending}
               >
                 {isPending && <Loader className="animate-spin mr-2" />}
