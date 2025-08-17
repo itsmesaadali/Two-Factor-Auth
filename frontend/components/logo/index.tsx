@@ -1,23 +1,22 @@
 import Link from "next/link";
 import React from "react";
 
-const Logo = (props: { url?: string; size?: string; fontSize?: string }) => {
-  const { url = "/", size = "40px", fontSize = "24px" } = props;
+const Logo = (props: { url?: string; padding?: string; fontSize?: string }) => {
+  const { url = "/", padding = "8px 12px", fontSize = "18px" } = props;
+
   return (
     <div className="flex items-center justify-center sm:justify-start">
       <Link
         href={url}
-        className="
-      rounded-lg flex items-center border-2 dark:border-gray-200
-      justify-center bg-gradient-to-br from-blue-500 to-primary to-90%
-        "
-        style={{ width: size, height: size }}
+        className="rounded-lg flex items-center border-2 dark:border-gray-200
+                   justify-center bg-gradient-to-br from-blue-500 to-primary to-90%"
+        style={{ padding }}
       >
         <span
-          className="font-bold text-gray-50 "
-          style={{ fontSize: fontSize }}
+          className="font-bold text-gray-50 whitespace-nowrap"
+          style={{ fontSize }}
         >
-          S
+          MERN-2FA
         </span>
       </Link>
     </div>

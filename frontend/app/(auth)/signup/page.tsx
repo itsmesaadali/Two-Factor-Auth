@@ -25,20 +25,6 @@ export default function SignUp() {
 
   const { mutate, isPending } = useMutation({
     mutationFn: registerMutationFn,
-    onSuccess: () => {
-      setIsSubmitted(true);
-      toast.success("Registration successful!", {
-        description: "Check your email for verification",
-      });
-    },
-    onError: (error: any) => {
-      console.error("Registration error:", error);
-      toast.error("Registration failed", {
-        description:  
-          error.message || 
-          "Please try again later",
-      });
-    },
   });
 
   const formSchema = z
@@ -46,9 +32,11 @@ export default function SignUp() {
       name: z.string().trim().min(1, {
         message: "Name is required",
       }),
-      email: z.string().trim().email().min(1, {
-        message: "Email is required",
-      }),
+      email: z
+        .string()
+        .trim()
+        .min(1, { message: "Email is required" })
+        .email({ message: "Invalid email address" }),
       password: z.string().trim().min(1, {
         message: "Password is required",
       }),
@@ -72,7 +60,19 @@ export default function SignUp() {
   });
 
   const onSubmit = (values: z.infer<typeof formSchema>) => {
-    mutate(values);
+    mutate(values, {
+      onSuccess: () => {
+        setIsSubmitted(true);
+        toast.success("Registration successful!", {
+          description: "Check your email for verification",
+        });
+      },
+      onError: (error: any) => {
+        toast.error("Registration failed", {
+          description: error.message || "Please try again later",
+        });
+      },
+    });
   };
 
   return (
@@ -83,7 +83,7 @@ export default function SignUp() {
             <Logo />
 
             <h1 className="text-xl tracking-[-0.16px] dark:text-[#fcfdffef] font-bold mb-1.5 mt-8 text-center sm:text-left">
-              Create a Squeezy account
+              Create a MERN account
             </h1>
             <p className="mb-6 text-center sm:text-left text-base dark:text-[#f1f7feb5] font-normal">
               Already have an account?{" "}
@@ -175,13 +175,15 @@ export default function SignUp() {
                     )}
                   />
                 </div>
-                
+
                 <Button
                   className="w-full text-[15px] h-[40px] !bg-primary text-white font-semibold"
                   disabled={isPending}
                   type="submit"
                 >
-                  {isPending && <Loader className="animate-spin mr-2" size={16} />}
+                  {isPending && (
+                    <Loader className="animate-spin mr-2" size={16} />
+                  )}
                   Create account
                   <ArrowRight className="ml-2" size={16} />
                 </Button>
