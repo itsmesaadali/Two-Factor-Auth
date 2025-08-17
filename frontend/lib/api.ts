@@ -41,6 +41,20 @@ type verifyMfaLoginType = {
   email: string;
 };
 
+type SessionType = {
+  _id: string;
+  userId: string;
+  userAgent: string;
+  createdAt: string;
+  expiredAt: string;
+  isCurrent: boolean;
+};
+
+type SessionResponseType = {
+  message: string;
+  sessions: SessionType[];
+};
+
 export const loginMutationFn = async (data: LoginType) =>
   await API.post("/auth/login", data);
 
@@ -71,3 +85,11 @@ export const revokeMFAMutationFn = async () =>
   await API.post("/mfa/revoke", {});
 
 export const getUserSessionQueryFn = async () => await API.get("/session/");
+
+export const sessionsQueryFn = async () => {
+  const response = await API.get<SessionResponseType>("sessions/all");
+  return response.data;
+};
+
+export const sessionDelMutationFn = async (id: string) =>
+  await API.delete(`/session/${id}`);
