@@ -107,7 +107,7 @@ npm run dev   # start frontend server
 
 | Login Page | MFA Verification | Dashboard |
 |------------|------------------|-----------|
-| ![Login](public/next.svg) | ![MFA](public/vercel.svg) | ![Dashboard](public/window.svg) |
+| ![Login](https://github.com/itsmesaadali/Two-Factor-Auth/blob/main/frontend/public/Login.png) | ![MFA](https://github.com/itsmesaadali/Two-Factor-Auth/blob/main/frontend/public/Setup-MFA.png) | ![Dashboard](https://github.com/itsmesaadali/Two-Factor-Auth/blob/main/frontend/public/Dashboard.png) |
 
 ---
 
