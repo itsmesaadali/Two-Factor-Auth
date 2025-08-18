@@ -65,7 +65,7 @@ Two-Factor-Auth/
 - Passport + JWT Strategy  
 - Bcrypt (password hashing)  
 - Resend (email service)  
-- SQL (with models for user/session/verification)  
+- MongoDB (with models for user/session/verification)  
 
 ### **Frontend**  
 - Next.js 14 (App Router)  
@@ -81,7 +81,7 @@ Two-Factor-Auth/
 ### 1️⃣ Clone the Repository  
 
 ```bash
-git clone https://github.com/your-username/two-factor-auth.git
+git clone https://github.com/itsmesaadali/two-factor-auth.git
 cd two-factor-auth
 ```
 
