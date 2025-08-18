@@ -217,7 +217,7 @@ export class AuthService {
     const user = await UserModel.findOne({ email });
 
     if (!user) {
-      throw new NotFoundException("User not found");
+      throw new NotFoundException("Invalid email, Please check agian");
     }
 
     // Check mail rate limit: 2 emails per 3 minutes
