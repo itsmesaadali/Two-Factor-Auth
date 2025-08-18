@@ -68,7 +68,7 @@ const VerifyMfa = () => {
         });
       },
       onError: (error: any) => {
-        toast.error("Revoke MFA failed", {
+        toast.error("MFA failed", {
           description: error.message || "Please try again later",
         });
       },
@@ -106,13 +106,12 @@ const VerifyMfa = () => {
                     </FormLabel>
                     <FormControl>
                       <InputOTP
-                        className="!text-lg flex items-center"
+                        className="!text-lg flex justify-center gap-2"
                         maxLength={6}
                         pattern={REGEXP_ONLY_DIGITS}
                         {...field}
-                        style={{ justifyContent: "center" }}
                       >
-                        <InputOTPGroup>
+                        <InputOTPGroup className="flex gap-2">
                           <InputOTPSlot
                             index={0}
                             className="!w-14 !h-12 !text-lg"
@@ -121,8 +120,6 @@ const VerifyMfa = () => {
                             index={1}
                             className="!w-14 !h-12 !text-lg"
                           />
-                        </InputOTPGroup>
-                        <InputOTPGroup>
                           <InputOTPSlot
                             index={2}
                             className="!w-14 !h-12 !text-lg"
@@ -131,8 +128,6 @@ const VerifyMfa = () => {
                             index={3}
                             className="!w-14 !h-12 !text-lg"
                           />
-                        </InputOTPGroup>
-                        <InputOTPGroup>
                           <InputOTPSlot
                             index={4}
                             className="!w-14 !h-12 !text-lg"
@@ -144,14 +139,13 @@ const VerifyMfa = () => {
                         </InputOTPGroup>
                       </InputOTP>
                     </FormControl>
+
                     <FormMessage />
                   </FormItem>
                 )}
               />
-              <Button 
-                disabled={isPending}
-              className="w-full h-[40px] mt-2">
-                {isPending && <Loader className='animate-spin mr-2'/>}
+              <Button disabled={isPending} className="w-full h-[40px] mt-2">
+                {isPending && <Loader className="animate-spin mr-2" />}
                 Continue
                 <ArrowRight />
               </Button>

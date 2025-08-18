@@ -13,25 +13,30 @@ const Home = () => {
           Follow the steps to activate using the MERN-2FA.
         </p>
       </div>
+      
       <div className="relative max-w-3xl py-0 mx-auto w-full px-6 md:max-w-5xl">
-
-        <div className="steps-gradient dark:bg-gray-800 absolute top-0 h-[700px] w-px"></div>
+        {/* Vertical connecting line */}
+        <div className="absolute left-[26px] top-0 h-full w-0.5 bg-gray-200 dark:bg-gray-700"></div>
         
-        <div className="flex flex-col gap-5">
-          <div className="relative pl-6 transition duration-200 ease-in-out">
-            <div className="bg-white dark:bg-background  absolute -left-[9.5px] top-7 z-10 block h-5 w-5 rounded-full">
-              <div className="ml-1 mt-1 h-3 w-3 rounded-full border-2 transition duration-200 ease-in-out border-primary"></div>
+        <div className="flex flex-col gap-10">
+          {/* MFA Section */}
+          <div className="relative pl-10 transition duration-200 ease-in-out">
+            <div className="absolute -left-[17px] top-0 z-10 flex h-10 w-10 items-center justify-center">
+              <div className="bg-white dark:bg-background h-5 w-5 rounded-full border-4 border-white dark:border-background">
+                <div className="h-3 w-3 rounded-full border-2 border-primary"></div>
+              </div>
             </div>
             <div>
               <EnableMfa />
             </div>
           </div>
-        </div>
 
-        <div className="flex flex-col gap-5">
-          <div className="relative pl-6 transition duration-200 ease-in-out">
-            <div className="bg-white dark:bg-background  absolute -left-[9.5px] top-7 z-10 block h-5 w-5 rounded-full">
-              <div className="ml-1 mt-1 h-3 w-3 rounded-full border-2 transition duration-200 ease-in-out border-primary"></div>
+          {/* Sessions Section */}
+          <div className="relative pl-10 transition duration-200 ease-in-out">
+            <div className="absolute -left-[17px] top-0 z-10 flex h-10 w-10 items-center justify-center">
+              <div className="bg-white dark:bg-background h-5 w-5 rounded-full border-4 border-white dark:border-background">
+                <div className="h-3 w-3 rounded-full border-2 border-primary"></div>
+              </div>
             </div>
             <div>
               <Sessions />

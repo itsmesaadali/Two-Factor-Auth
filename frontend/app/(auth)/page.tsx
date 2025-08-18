@@ -57,7 +57,7 @@ export default function Login() {
       },
       onError: (error: any) => {
         toast.error("Login failed", {
-          description: error.message || "Please try again later",
+          description: error?.message || "Please try again later",
         });
       },
     });

@@ -13,7 +13,7 @@ const SessionItem = (props: {
 }) => {
   const { userAgent, loading, date, isCurrent = false, onRemove } = props;
 
-  const { browser, icon:Icon, os, timeAgo } = parseUserAgent(
+  const { browser, icon: Icon, os, timeAgo } = parseUserAgent(
     userAgent,
     date
   );
@@ -23,27 +23,22 @@ const SessionItem = (props: {
       onRemove();
     }
   };
+
   return (
-    <div className="w-full flex items-center ">
-      <div
-        className="shrink-0 mr-[16px] flex items-center justify-center
-       w-[48px] h-[48px] rounded-full border dorder-[#eee] dark:border-[rgb(42,45,48)]"
-      >
+    <div className="w-full flex items-center">
+      <div className="shrink-0 mr-4 flex items-center justify-center w-12 h-12 rounded-full border border-[#eee] dark:border-[rgb(42,45,48)]">
         <Icon />
       </div>
       <div className="flex-1 flex items-center justify-between">
-        <div className="flex-1">
-          <h5 className="text-sm font-medium leading-1">{os} / {browser}</h5>
-          <div className="flex items-center">
+        <div>
+          <h5 className="text-sm font-medium leading-5">{os} / {browser}</h5>
+          <div className="mt-1">
             {isCurrent ? (
-              <div
-                className="bg-green-500/80 h-[20px] px-2 w-[81px] 
-              flex items-center justify-center text-xs text-white rounded-lg"
-              >
+              <span className="inline-flex items-center px-2 py-0.5 rounded-lg text-xs font-medium bg-green-500/80 text-white">
                 Active now
-              </div>
+              </span>
             ) : (
-              <span className="mr-[16px] text-[13px] text-muted-foreground font-normal">
+              <span className="text-[13px] text-muted-foreground font-normal">
                 {timeAgo}
               </span>
             )}
@@ -57,8 +52,7 @@ const SessionItem = (props: {
             variant="ghost"
             size="icon"
           >
-            {loading && <Loader className="animate-spin mr-2" />}
-            <Trash2 size="29px" />
+            {loading ? <Loader className="animate-spin" /> : <Trash2 size={20} />}
           </Button>
         )}
       </div>

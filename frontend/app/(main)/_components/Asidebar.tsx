@@ -75,14 +75,9 @@ const Asidebar = () => {
       <Sidebar collapsible="icon">
         <SidebarHeader className="!pt-0 dark:bg-background">
           <div className="flex h-[60px] items-center">
-            <Logo fontSize="20px" url="/home" />
             {open && (
-              <Link
-                href="/home"
-                className="hidden md:flex ml-2 text-xl tracking-[-0.16px] text-black dark:text-[#fcfdffef] font-bold mb-0"
-              >
-                MERN-2FA
-              </Link>
+              
+              <Logo fontSize="20px" url="/home" />
             )}
           </div>
         </SidebarHeader>

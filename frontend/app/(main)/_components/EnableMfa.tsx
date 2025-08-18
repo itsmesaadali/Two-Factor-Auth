@@ -40,8 +40,7 @@ import RevokeMfa from "./_common/RevokeMfa";
 
 const EnableMfa = () => {
   const queryClient = useQueryClient();
-
-  const { user, refetch} = useAuthContext();
+  const { user, refetch } = useAuthContext();
   const [showKey, setShowKey] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [copied, setCopied] = useState(false);
@@ -111,10 +110,7 @@ const EnableMfa = () => {
             Multi-Factor Authentication (MFA)
           </h3>
           {user?.userPreferences?.enable2FA && (
-            <span
-              className="select-none whitespace-nowrap font-medium bg-green-100 text-green-500
-          text-xs h-6 px-2 rounded flex flex-row items-center justify-center gap-1"
-            >
+            <span className="select-none whitespace-nowrap font-medium bg-green-100 text-green-500 text-xs h-6 px-2 rounded flex flex-row items-center justify-center gap-1">
               Enabled
             </span>
           )}
@@ -123,162 +119,101 @@ const EnableMfa = () => {
           Protect your account by adding an extra layer of security.
         </p>
         {user?.userPreferences?.enable2FA ? (
-          <RevokeMfa/>
+          <RevokeMfa />
         ) : (
-          <Dialog modal open={isOpen} onOpenChange={setIsOpen}>
+          <Dialog
+            modal
+            open={isOpen}
+            onOpenChange={(open) => !isPending && setIsOpen(open)}
+          >
             <DialogTrigger asChild>
-              <Button className="h-[35px] text-white">Enable MFA</Button>
+              <Button>Enable MFA</Button>
             </DialogTrigger>
-            <DialogContent className="!gap-0">
+            <DialogContent className="z-[9999] sm:max-w-[450px]">
               <DialogHeader>
-                <DialogTitle className="text-[17px] text-slate-12 font-semibold">
-                  Setup Multi-Factor Authentication
-                </DialogTitle>
+                <DialogTitle>Setup MFA</DialogTitle>
               </DialogHeader>
-              <div className="">
-                <p className="mt-6 text-sm text-[#0007149f] dark:text-inherit font-bold">
-                  Scan the QR code
-                </p>
-                <span className="text-sm text-[#0007149f] dark:text-inherit font-normal">
-                  Use an app like{" "}
-                  <a
-                    className="!text-primary underline decoration-primary decoration-1 underline-offset-2 transition duration-200 ease-in-out hover:decoration-blue-11 dark:text-current dark:decoration-slate-9 dark:hover:decoration-current "
-                    rel="noopener noreferrer"
-                    target="_blank"
-                    href="https://support.1password.com/one-time-passwords/"
-                  >
-                    1Password
-                  </a>{" "}
-                  or{" "}
-                  <a
-                    className="!text-primary underline decoration-primary decoration-1 underline-offset-2 transition duration-200 ease-in-out hover:decoration-blue-11 dark:text-current dark:decoration-slate-9 dark:hover:decoration-current "
-                    rel="noopener noreferrer"
-                    target="_blank"
-                    href="https://safety.google/authentication/"
-                  >
-                    Google Authenticator
-                  </a>{" "}
-                  to scan the QR code below.
-                </span>
-              </div>
-              <div className="mt-4 flex flex-row items-center gap-4">
-                <div className="shrink-0 rounded-md border p-2  border-[#0009321f] dark:border-gray-600 bg-white">
-                  {isLoading || !mfaData?.qrImageUrl ? (
-                    <Skeleton className="w-[160px ] h-[160px]" />
+
+              {/* QR Code Section */}
+              <div className="flex flex-col items-center gap-4">
+                <div className="border-2 border-black rounded-md p-2 bg-white">
+                  {isLoading ? (
+                    <Skeleton className="w-[200px] h-[200px]" />
                   ) : (
                     <img
-                      alt="QR code"
-                      decoding="async"
                       src={mfaData.qrImageUrl}
-                      width="160"
-                      height="160"
-                      className="rounded-md"
+                      width={200}
+                      height={200}
+                      alt="MFA QR Code"
+                      className="rounded-sm"
                     />
                   )}
                 </div>
 
-                {showKey ? (
-                  <div className="w-full">
-                    <div
-                      className="flex items-center gap-1
-                              text-sm text-[#0007149f] dark:text-muted-foreground font-normal"
-                    >
-                      <span>Copy setup key</span>
-                      <button
-                        disabled={copied}
+                {!showKey ? (
+                  <Button
+                    variant="link"
+                    onClick={() => setShowKey(true)}
+                    className="text-primary"
+                  >
+                    Can't scan? Enter code manually
+                  </Button>
+                ) : (
+                  <div className="w-full p-3 bg-gray-100 dark:bg-gray-800 rounded-md">
+                    <div className="flex justify-between items-center mb-2">
+                      <span className="text-sm font-medium">Setup Key</span>
+                      <Button
+                        size="sm"
+                        variant="ghost"
                         onClick={() => onCopy(mfaData?.secret)}
                       >
-                        {copied ? (
-                          <Check className="w-4 h-4" />
-                        ) : (
-                          <Copy size="w-4 h-4" />
-                        )}
-                      </button>
+                        {copied ? "Copied!" : "Copy"}
+                      </Button>
                     </div>
-                    <p className="text-sm block truncate w-[200px] text-black dark:text-muted-foreground">
+                    <code className="text-sm break-all font-mono">
                       {mfaData?.secret}
-                    </p>
+                    </code>
                   </div>
-                ) : (
-                  <span className="text-sm text-[#0007149f] dark:text-muted-foreground font-normal">
-                    Can't scan the code?
-                    <button
-                      className="block text-primary transition duration-200 ease-in-out hover:underline
-                   dark:text-white"
-                      type="button"
-                      onClick={() => setShowKey(true)}
-                    >
-                      View the Setup Key
-                    </button>
-                  </span>
                 )}
               </div>
 
-              <div className="mt-8 border-t">
-                <Form {...form}>
-                  <form
-                    onSubmit={form.handleSubmit(onSubmit)}
-                    className="w-full mt-6 flex flex-col gap-4 "
-                  >
-                    <FormField
-                      control={form.control}
-                      name="pin"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel className="text-sm mb-1 text-slate-11 font-bold">
-                            Then enter the code
-                          </FormLabel>
-                          <FormControl>
-                            <InputOTP
-                              className="!text-lg flex items-center"
-                              maxLength={6}
-                              pattern={REGEXP_ONLY_DIGITS}
-                              {...field}
-                              style={{ justifyContent: "center" }}
-                            >
-                              <InputOTPGroup>
-                                <InputOTPSlot
-                                  index={0}
-                                  className="!w-14 !h-12 !text-lg"
-                                />
-                                <InputOTPSlot
-                                  index={1}
-                                  className="!w-14 !h-12 !text-lg"
-                                />
-                              </InputOTPGroup>
-                              <InputOTPGroup>
-                                <InputOTPSlot
-                                  index={2}
-                                  className="!w-14 !h-12 !text-lg"
-                                />
-                                <InputOTPSlot
-                                  index={3}
-                                  className="!w-14 !h-12 !text-lg"
-                                />
-                              </InputOTPGroup>
-                              <InputOTPGroup>
-                                <InputOTPSlot
-                                  index={4}
-                                  className="!w-14 !h-12 !text-lg"
-                                />
-                                <InputOTPSlot
-                                  index={5}
-                                  className="!w-14 !h-12 !text-lg"
-                                />
+              {/* Verification Form */}
+              <Form {...form}>
+                <form
+                  onSubmit={form.handleSubmit(onSubmit)}
+                  className="mt-4 space-y-4"
+                >
+                  <FormField
+                    control={form.control}
+                    name="pin"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Verification Code</FormLabel>
+                        <FormControl>
+                          <div className="flex justify-center">
+                            <InputOTP maxLength={6} {...field}>
+                              <InputOTPGroup className="gap-1">
+                                {[...Array(6)].map((_, i) => (
+                                  <InputOTPSlot
+                                    key={i}
+                                    index={i}
+                                    className="w-12 h-12 text-lg"
+                                  />
+                                ))}
                               </InputOTPGroup>
                             </InputOTP>
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                    <Button disabled={isPending} className="w-full h-[40px]">
-                      {isPending && <Loader className="animate-spin mr-2" />}
-                      Verify
-                    </Button>
-                  </form>
-                </Form>
-              </div>
+                          </div>
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <Button type="submit" className="w-full" disabled={isPending}>
+                    {isPending && <Loader className="mr-2 animate-spin" />}
+                    Verify
+                  </Button>
+                </form>
+              </Form>
             </DialogContent>
           </Dialog>
         )}
