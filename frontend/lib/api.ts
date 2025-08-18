@@ -89,7 +89,7 @@ export const revokeMFAMutationFn = async () =>
 export const getUserSessionQueryFn = async () => await API.get("/session/");
 
 export const sessionsQueryFn = async () => {
-  const response = await API.get<SessionResponseType>("sessions/all");
+  const response = await API.get<SessionResponseType>("session/all");
   return response.data;
 };
 
