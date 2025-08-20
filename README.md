@@ -65,7 +65,7 @@ Two-Factor-Auth/
 - Passport + JWT Strategy  
 - Bcrypt (password hashing)  
 - Resend (email service)  
-- SQL (with models for user/session/verification)  
+- MongoDB (with models for user/session/verification)  
 
 ### **Frontend**  
 - Next.js 14 (App Router)  
@@ -81,7 +81,7 @@ Two-Factor-Auth/
 ### 1️⃣ Clone the Repository  
 
 ```bash
-git clone https://github.com/your-username/two-factor-auth.git
+git clone https://github.com/itsmesaadali/two-factor-auth.git
 cd two-factor-auth
 ```
 
@@ -107,7 +107,7 @@ npm run dev   # start frontend server
 
 | Login Page | MFA Verification | Dashboard |
 |------------|------------------|-----------|
-| ![Login](public/next.svg) | ![MFA](public/vercel.svg) | ![Dashboard](public/window.svg) |
+| ![Login](https://github.com/itsmesaadali/Two-Factor-Auth/blob/main/frontend/public/Login.png) | ![MFA](https://github.com/itsmesaadali/Two-Factor-Auth/blob/main/frontend/public/Setup-MFA.png) | ![Dashboard](https://github.com/itsmesaadali/Two-Factor-Auth/blob/main/frontend/public/Dashboard.png) |
 
 ---
 
